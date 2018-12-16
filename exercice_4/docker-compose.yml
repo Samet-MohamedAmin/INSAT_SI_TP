@@ -1,0 +1,30 @@
+version: '3'
+services:
+  server:
+    image: server
+    container_name: server
+    build:
+      context: ./services/server
+    networks:
+      network_ip:
+        ipv4_address: ${ip_server}
+
+  pirate:
+    image: pirate
+    container_name: pirate
+    build:
+      context: ./services/pirate
+    depends_on:
+      - server
+    networks:
+      network_ip:
+        ipv4_address: ${ip_pirate}
+
+
+
+networks:
+  network_ip:
+    ipam:
+      config:
+        - subnet: 10.10.10.0/24
+        

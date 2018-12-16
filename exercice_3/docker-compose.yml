@@ -1,0 +1,61 @@
+version: '3'
+services:
+  machine_1:
+    image: machine_1
+    container_name: machine_1
+    build:
+      context: ./services/machine_1
+    environment:
+      - IP_MACHINE_2=${ip_machine_2}
+      - CMD_MACHINE_1=${cmd_machine_1}
+      - LOG_FILE=${log_file}
+      - SCRIPT_FILE=${script_file}
+    volumes:
+      - ./log:${dir_log}
+    depends_on:
+      - machine_2
+    networks:
+      network_ip:
+        ipv4_address: ${ip_machine_1}
+
+  machine_2:
+    image: machine_2
+    container_name: machine_2
+    build:
+      context: ./services/machine_2
+    environment:
+      - IP_MACHINE_1=${ip_machine_1}
+    volumes:
+      - ./log:${dir_log}
+    networks:
+      network_ip:
+        ipv4_address: ${ip_machine_2}
+
+  pirate:
+    image: pirate
+    container_name: pirate
+    build:
+      context: ./services/pirate
+    environment:
+      - IP_MACHINE_1=${ip_machine_1}
+      - IP_MACHINE_2=${ip_machine_2}
+      - CMD_PIRATE=${cmd_pirate}
+      - LOG_FILE=${log_file}
+      - SCRIPT_FILE=${script_file}
+    volumes:
+      - ./log:/tmp/log
+    depends_on:
+      - machine_1
+      - machine_2
+    networks:
+      network_ip:
+        ipv4_address: ${ip_pirate}
+
+
+
+networks:
+  network_ip:
+    ipam:
+      config:
+        - subnet: 10.10.10.0/24
+        

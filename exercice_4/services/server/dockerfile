@@ -1,0 +1,6 @@
+FROM fedora:29
+
+RUN dnf install iputils net-tools -y
+RUN dnf install htop -y
+
+CMD [ "vi" ]

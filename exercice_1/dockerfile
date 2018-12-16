@@ -1,0 +1,15 @@
+FROM fedora:29
+
+RUN dnf install john -y
+
+# copying password list
+COPY ./pass /pass
+
+# copyinh password list file
+COPY ./list /list
+
+# add goal.bash to executable files
+COPY ./goal.bash /bin/goal.bash
+
+
+CMD ["bash"]

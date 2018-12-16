@@ -1,0 +1,12 @@
+FROM fedora:29
+
+RUN dnf install iputils net-tools -y
+RUN dnf install traceroute -y
+
+# exception
+RUN dnf install dsniff -y
+
+COPY ${SCRIPT_FILE} /bin
+# end common between machine_1 and pirate
+
+CMD ["vi"]

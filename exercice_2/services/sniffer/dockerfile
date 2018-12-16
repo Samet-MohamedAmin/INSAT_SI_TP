@@ -1,0 +1,10 @@
+FROM fedora
+
+# install dependencies
+RUN dnf install iputils net-tools -y
+RUN dnf install telnet -y
+## install dsniff for sniffing
+RUN dnf install dsniff -y
+
+
+CMD ["vi"]

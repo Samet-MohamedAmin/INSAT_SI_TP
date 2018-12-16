@@ -1,0 +1,10 @@
+FROM fedora
+
+RUN dnf install iputils net-tools -y
+RUN dnf install telnet telnet-server -y
+
+# add IP_SERVER to env variables
+ARG IP_SERVER
+ENV IP_SERVER=${IP_SERVER}
+
+CMD ["vi"]
