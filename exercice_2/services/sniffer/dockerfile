@@ -1,4 +1,4 @@
-FROM fedora
+FROM fedora:29
 
 # install dependencies
 RUN dnf install iputils net-tools -y
