@@ -28,7 +28,7 @@ The work environment is consisted of:
   
 ## Work Process
 ### hping3
-> hping3 is a network tool able to send custom TCP/IP packets and to display target replies like ping program does with ICMP replies. hping3 handle fragmentation, arbitrary packets body and size and can be used in order to transfer files encapsulated under supported protocols.[linux.die.net]
+> hping3 is a network tool able to send custom TCP/IP packets and to display target replies like ping program does with ICMP replies. hping3 handle fragmentation, arbitrary packets body and size and can be used in order to transfer files encapsulated under supported protocols. [linux.die.net]
 
 example:
 `hping3 -V -c 1000000 -d 120 -S -w 64 -p 445 -s 445 --flood --rand-source VICTIM_IP`
@@ -73,8 +73,6 @@ hping in flood mode, no replies will be shown
 - Every accessible server may be target of Flooding attack
 - As counter measurment to Flooding attack, detect earlier the DoS attack and prevent massive SynFlooding by blocking attackers addresses.
 - Blocking and detecting DoS attack may be really easy. But in case of attack from multiple devices or zombie clients (DDos), it may be really hard to distinguish the real clients from the fake ones.
-
-
 
 
 [linux.die.net]: https://linux.die.net/man/8/hping3
