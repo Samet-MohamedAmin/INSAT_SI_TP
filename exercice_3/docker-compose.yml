@@ -7,7 +7,7 @@ services:
       context: ./services/machine_1
     environment:
       - IP_MACHINE_2=${ip_machine_2}
-      - CMD_MACHINE_1=${cmd_machine_1}
+      - CMD=${cmd_machine_1}
       - LOG_FILE=${log_file}
       - SCRIPT_FILE=${script_file}
     volumes:
@@ -39,7 +39,7 @@ services:
     environment:
       - IP_MACHINE_1=${ip_machine_1}
       - IP_MACHINE_2=${ip_machine_2}
-      - CMD_PIRATE=${cmd_pirate}
+      - CMD=${cmd_pirate}
       - LOG_FILE=${log_file}
       - SCRIPT_FILE=${script_file}
     volumes:

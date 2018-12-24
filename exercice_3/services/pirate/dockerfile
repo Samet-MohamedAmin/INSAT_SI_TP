@@ -6,7 +6,7 @@ RUN dnf install traceroute -y
 # exception
 RUN dnf install dsniff -y
 
-COPY ${SCRIPT_FILE} /bin
+COPY ${SCRIPT_FILE} /usr/bin
 # end common between machine_1 and pirate
 
 CMD ["vi"]

