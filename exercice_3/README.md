@@ -1,5 +1,15 @@
 # Spoofing
 
+## Content
+- [Spoofing](#spoofing)
+  - [Content](#content)
+  - [Work Environment](#work-environment)
+  - [Work Process](#work-process)
+    - [arpspoof](#arpspoof)
+    - [How to run](#how-to-run)
+    - [Result](#result)
+  - [Interpretation](#interpretation)
+  - [Conclusion](#conclusion)
 
 ## Work Environment
 The work environment is consisted of:
@@ -26,7 +36,7 @@ The work environment is consisted of:
 
 ## Work Process
 ### arpspoof
-arpspoof mounts an ARP spoofing attack against a host on the local network. This results in traffic from the attacked host to the default gateway (and all non-LAN hosts) and back going through the local computer and can thus be captured with tools like Wireshark. arpspoof will also forward this traffic, so Windows does NOT have to be configured as a router.[1]
+arpspoof mounts an ARP spoofing attack against a host on the local network. This results in traffic from the attacked host to the default gateway (and all non-LAN hosts) and back going through the local computer and can thus be captured with tools like Wireshark. arpspoof will also forward this traffic, so Windows does NOT have to be configured as a router. [github/alandau]
 
 ### How to run
 - execute docker-compose: `docker-compose up`
@@ -92,6 +102,7 @@ traceroute to 10.10.10.3 (10.10.10.3), 30 hops max, 60 byte packets
 
 
 ## Conclusion
+- The attack may have strong impact if it is combined with `Dos` attack to prevent any probabilty of connection from the target machine we want to contact
 - We should consider only ip address as the unique method for authentication.
 - As counter measurment, we have to use other anti-arp solutions like:
   - DHCP snopping
@@ -100,4 +111,4 @@ traceroute to 10.10.10.3 (10.10.10.3), 30 hops max, 60 byte packets
 
 
 
-[1]: https://github.com/alandau/arpspoof
+[github/alandau]: https://github.com/alandau/arpspoof
