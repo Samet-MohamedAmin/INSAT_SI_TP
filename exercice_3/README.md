@@ -30,13 +30,13 @@ The work environment is consisted of:
   - ip addresses configuration
   - commands to execute for machine_1 and pirate
   - paths for script for log file and script file
-- `goal.bash`: script to execute machine_1 and pirate commands
+- `goal.bash`: script to execute machine_1 and pirate commands. (_be sure that goal.bash is executable_)
 - `docker-compose.yml` configuration
   
 
 ## Work Process
 ### arpspoof
-arpspoof mounts an ARP spoofing attack against a host on the local network. This results in traffic from the attacked host to the default gateway (and all non-LAN hosts) and back going through the local computer and can thus be captured with tools like Wireshark. arpspoof will also forward this traffic, so Windows does NOT have to be configured as a router. [github/alandau]
+> arpspoof mounts an ARP spoofing attack against a host on the local network. This results in traffic from the attacked host to the default gateway (and all non-LAN hosts) and back going through the local computer and can thus be captured with tools like Wireshark. arpspoof will also forward this traffic, so Windows does NOT have to be configured as a router. [github/alandau]
 
 ### How to run
 - execute docker-compose: `docker-compose up`

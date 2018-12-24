@@ -1,6 +1,17 @@
 # DoS
 In this exercice, we are going to test one kind of DoS attack: SynFlooding with `hping3` tool.
 
+## Content
+- [DoS](#dos)
+  - [Content](#content)
+  - [Work Environment](#work-environment)
+  - [Work Process](#work-process)
+    - [hping3](#hping3)
+    - [How to run](#how-to-run)
+    - [Result](#result)
+  - [Interpretation](#interpretation)
+  - [Conclusion](#conclusion)
+
 ## Work Environment
 The work environment is consisted of:
 - two services
@@ -17,7 +28,7 @@ The work environment is consisted of:
   
 ## Work Process
 ### hping3
-hping3 is a network tool able to send custom TCP/IP packets and to display target replies like ping program does with ICMP replies. hping3 handle fragmentation, arbitrary packets body and size and can be used in order to transfer files encapsulated under supported protocols.[1]
+> hping3 is a network tool able to send custom TCP/IP packets and to display target replies like ping program does with ICMP replies. hping3 handle fragmentation, arbitrary packets body and size and can be used in order to transfer files encapsulated under supported protocols.[linux.die.net]
 
 example:
 `hping3 -V -c 1000000 -d 120 -S -w 64 -p 445 -s 445 --flood --rand-source VICTIM_IP`
@@ -66,4 +77,4 @@ hping in flood mode, no replies will be shown
 
 
 
-[1]: https://linux.die.net/man/8/hping3
+[linux.die.net]: https://linux.die.net/man/8/hping3

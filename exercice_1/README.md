@@ -1,16 +1,30 @@
 # Cracking
 In this exercice, we are going to test password cracking attack with the well known john the ripper program.
 
+## Content
+- [Cracking](#cracking)
+  - [Content](#content)
+  - [Work Environment](#work-environment)
+  - [Work Process](#work-process)
+    - [john the ripper](#john-the-ripper)
+    - [How to run](#how-to-run)
+    - [Result](#result)
+  - [Interpretation](#interpretation)
+    - [Step 1](#step-1)
+    - [Step 2](#step-2)
+    - [Step 3](#step-3)
+  - [Conclusion](#conclusion)
+
 ## Work Environment
 The work environment is consisted of `fedora:29` image containing:
 - installed `john` program
 - the target password files inside `/pass`
 - the password list inside `password.lst`
-- `goal.bash` as executable script inside `/bin` directory
+- `goal.bash` as executable script inside `/bin` directory (_be sure that goal.bash is executable_)
 
 ## Work Process
 ### john the ripper
-John the Ripper is a free password cracking software tool. Initially developed for the Unix operating system, it now runs on fifteen different platforms.[1]
+> John the Ripper is a free password cracking software tool. Initially developed for the Unix operating system, it now runs on fifteen different platforms.[wikipedia]
 
 We are going to use john program for cracking three password files.
 
@@ -104,5 +118,5 @@ This may be really helpful if we have personal inforamtion of the user.
   - Use certified reliable password manager.
 
 
-[1]: https://en.wikipedia.org/wiki/John_the_Ripper
+[wikipedia]: https://en.wikipedia.org/wiki/John_the_Ripper
 
